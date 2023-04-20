@@ -28,20 +28,20 @@ for (let i = 0; i < inputQtds.length; i++) {
 
 
 function calcularSubtotal() {
-    let subtotais = document.querySelectorAll(".subtotal");
-    let somaSubtotais = 0;
-    subtotais.forEach((subtotal, i) => {
-        const row = subtotal.closest('.produto-item');
-        if (!row.classList.contains('removed')) {
-            const qtd = inputQtds[i].value;
-            const valor = parseFloat(valorUnitarios[i].innerText.replace('R$', '').trim());
-            subtotal.textContent = "R$ " + (valor * qtd).toLocaleString('pt-BR', {minimumFractionDigits: 2});
-            somaSubtotais += parseFloat(subtotal.textContent.replace("R$", "").trim());
-        }
-    });
-    subtotalCompra.textContent = "R$ " + (somaSubtotais).toLocaleString('pt-BR', {minimumFractionDigits: 2});
-    totalCompra.textContent = "R$ " + (somaSubtotais + 20).toLocaleString('pt-BR', {minimumFractionDigits: 2});
-  }
+  let subtotais = document.querySelectorAll(".subtotal");
+  let somaSubtotais = 0;
+  
+  subtotais.forEach((subtotal, i) => {
+    const row = subtotal.closest('.produto-item');
+    const qtd = inputQtds[i].value;
+    const valor = Number(valorUnitarios[i].innerText.replace('R$', '').trim());
+    subtotal.textContent = "R$ " + (valor * qtd).toFixed(2);
+    somaSubtotais += Number(subtotal.textContent.replace("R$", "").trim());
+  });
+  
+  subtotalCompra.textContent = "R$ " + somaSubtotais.toFixed(2);
+  totalCompra.textContent = "R$ " + (somaSubtotais + 20).toFixed(2);
+}
 window.addEventListener('load', () => {
     calcularSubtotal();
 });
